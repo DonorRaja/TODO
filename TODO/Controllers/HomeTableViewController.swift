@@ -68,7 +68,7 @@ class HomeTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         // Configure the cell...
-        let cell = tableView.dequeueReusableCell(withIdentifier: "listCell") as! ListTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: TODO.Cell.listCell) as! ListTableViewCell
         let list: ListModel
         if isFiltering {
             list = filterSearch[indexPath.row]
@@ -84,6 +84,7 @@ class HomeTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableView.deselectRow(at: indexPath, animated: true)
+        self.performSegue(withIdentifier: TODO.Segue.detailsView, sender: indexPath)
         
     }
     
@@ -125,6 +126,17 @@ class HomeTableViewController: UITableViewController {
         return true
     }
     */
+    //MARK: - Segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == TODO.Segue.detailsView {
+            let indexPath = sender as! IndexPath
+            let vc = segue.destination as! DetailsViewController
+            let listDetail = self.lists[indexPath.row]
+            vc.userID = listDetail.id
+            vc.detailText = listDetail.title
+            vc.completedText = listDetail.completed
+        }
+    }
     
    //MARK: - Functions
     func loadList(){
