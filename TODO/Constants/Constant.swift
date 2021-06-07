@@ -25,8 +25,16 @@ struct TODO {
         static let searchHere = "Search here..."
     }
     
+    struct Cell {
+        static let listCell = "listCell"
+    }
+    
     struct Alert {
         static let networkError = "The Internet connection appears to be offline."
         static let alert = "Alert"
+    }
+    
+    struct Segue {
+        static let detailsView = "sendDataSegue"
     }
 }
